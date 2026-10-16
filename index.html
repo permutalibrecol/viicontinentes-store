@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Oficial | Tequila VII Continentes USD</title>
+    <meta name="description" content="Adquiere en línea Tequila VII Continentes en USD. Expresiones Blanco, Reposado y Reserva Añejo. Envíos internacionales.">
+    
+    <!-- FAVICON CON MONOGRAMA ORO VII -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23030406'/><path d='M20 25 L38 75 L48 75 L30 25 Z' fill='%23d4af37'/><rect x='52' y='25' width='12' height='50' rx='2' fill='%23d4af37'/><rect x='68' y='25' width='12' height='50' rx='2' fill='%23d4af37'/></svg>">
+
+    <style>
+        :root {
+            --bg-deep: #030406;
+            --bg-card: #080c14;
+            --bg-elevated: #0f1420;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --red-alert: #dc2626;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* BANNER DE NOTIFICACIÓN SUPERIOR */
+        .top-bar {
+            background: linear-gradient(90deg, #000000 0%, #151b26 50%, #000000 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* NAV CON CARRITO Y LOGO */
+        nav.navbar {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            width: 180px;
+            height: auto;
+        }
+
+        .cart-trigger {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            padding: 10px 22px;
+            border-radius: 50px;
+            color: var(--gold-light);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-trigger:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .cart-count {
+            background: var(--red-alert);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* HEADER / HERO BOUTIQUE */
+        header.store-hero {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.1) 0%, rgba(3, 4, 6, 1) 70%);
+        }
+
+        header.store-hero h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--gold-light);
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header.store-hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* SECCIÓN DE PRODUCTOS (USD) */
+        section.products-section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+        }
+
+        .product-card.disabled {
+            border-color: rgba(220, 38, 38, 0.35);
+        }
+
+        .product-card.disabled .img-container img {
+            filter: grayscale(40%) opacity(0.8);
+        }
+
+        .badge-out-of-stock {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--red-alert);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
+            z-index: 10;
+        }
+
+        .img-container {
+            height: 420px;
+            width: 100%;
+            background: #030406;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .img-container img {
+            transform: scale(1.06);
+        }
+
+        .product-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .product-specs {
+            color: var(--gold-light);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .price-usd {
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--bg-deep);
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-add-cart:hover {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-disabled-cart {
+            width: 100%;
+            padding: 14px;
+            background: rgba(220, 38, 38, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(220, 38, 38, 0.4);
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: not-allowed;
+            text-align: center;
+        }
+
+        /* PASARELAS DE PAGO Y GARANTÍA */
+        section.payment-trust {
+            background: var(--bg-elevated);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .trust-title {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .payment-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge-pay {
+            background: rgba(3, 4, 6, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* MODAL / DRAWER DEL CARRITO DE COMPRAS */
+        #cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            background: #080c14;
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 9999;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.9);
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 25px;
+        }
+
+        #cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 20px;
+        }
+
+        .cart-header h2 {
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .close-cart {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .cart-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-item h4 {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .cart-item p {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 20px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--bg-deep);
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-checkout:hover {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #010204;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NOTIFICACIÓN DE ENVÍOS INTERNACIONALES -->
+    <div class="top-bar">
+        🌎 Envíos Internacionales Habilitados • Pagos Seguros en USD (Dólares)
+    </div>
+
+    <!-- NAVBAR Y CHECKOUT TRIGGER -->
+    <nav class="navbar">
+        <svg class="nav-logo" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="navGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff1bc" />
+                    <stop offset="50%" stop-color="#d4af37" />
+                    <stop offset="100%" stop-color="#aa8c2c" />
+                </linearGradient>
+            </defs>
+            <path d="M 105 10 L 125 65 L 137 65 L 119 10 Z" fill="url(#navGold)"/>
+            <rect x="141" y="10" width="10" height="55" rx="2" fill="url(#navGold)"/>
+            <rect x="155" y="10" width="10" height="55" rx="2" fill="url(#navGold)"/>
+            <rect x="30" y="70" width="240" height="25" rx="5" fill="#030406" stroke="url(#navGold)" stroke-width="1.5"/>
+            <text x="150" y="87" font-family="sans-serif" font-size="12" font-weight="900" fill="url(#navGold)" letter-spacing="4" text-anchor="middle">CONTINENTES</text>
+        </svg>
+
+        <button class="cart-trigger" onclick="toggleCart()">
+            🛒 Carrito <span class="cart-count" id="cart-count">0</span>
+        </button>
+    </nav>
+
+    <!-- HERO BOUTIQUE -->
+    <header class="store-hero">
+        <h1>Boutique Oficial viicontinentes.store</h1>
+        <p>Adquiere directamente de la destilería en Jalisco las ediciones exclusivas de Tequila VII Continentes. Precios expresados en Dólares Estadounidenses (USD).</p>
+    </header>
+
+    <!-- CATÁLOGO E-COMMERCE EN USD CON NUEVOS NOMBRES DE ARCHIVO DE IMAGEN -->
+    <section class="products-section">
+        <div class="products-grid">
+
+            <!-- 1. BLANCO (7continentes_1) -->
+            <article class="product-card">
+                <div class="img-container">
+                    <img src="7continentes_1" alt="Tequila VII Continentes Blanco 750ml">
+                </div>
+                <div class="product-body">
+                    <div>
+                        <span class="product-tag">Pureza Ancestral</span>
+                        <h3 class="product-title">Tequila Blanco</h3>
+                        <div class="product-specs">40% ALC. VOL. • 750 ML • 100% AGAVE AZUL</div>
+                        <p class="product-desc">Destilación artesanal limpia, con notas intensas a agave cocido, cítricos frescos y pimienta blanca. Embotellado directo de alambique de cobre.</p>
+                    </div>
+
+                    <div>
+                        <div class="price-row">
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">Precio Oficial:</span>
+                            <span class="price-usd">$85.00 USD</span>
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart('Tequila Blanco', 85.00)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2. REPOSADO (7continentes_2) -->
+            <article class="product-card">
+                <div class="img-container">
+                    <img src="7continentes_2" alt="Tequila VII Continentes Reposado 750ml">
+                </div>
+                <div class="product-body">
+                    <div>
+                        <span class="product-tag">Maduración Noble</span>
+                        <h3 class="product-title">Tequila Reposado</h3>
+                        <div class="product-specs">40% ALC. VOL. • 750 ML • 100% AGAVE AZUL</div>
+                        <p class="product-desc">Descansado durante 6 meses en barricas de roble blanco americano. Matices suaves de vainilla, roble tostado, caramelo suave y especias finas.</p>
+                    </div>
+
+                    <div>
+                        <div class="price-row">
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">Precio Oficial:</span>
+                            <span class="price-usd">$110.00 USD</span>
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart('Tequila Reposado', 110.00)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 3. AÑEJO (7continentes_3) - OUT OF STOCK -->
+            <article class="product-card disabled">
+                <span class="badge-out-of-stock">Out of Stock</span>
+                <div class="img-container">
+                    <img src="7continentes_3" alt="Tequila VII Continentes Añejo Reserva Especial - Agotado">
+                </div>
+                <div class="product-body">
+                    <div>
+                        <span class="product-tag" style="color: #fca5a5;">Reserva Especial • Gran Mención</span>
+                        <h3 class="product-title" style="opacity: 0.85;">Tequila Añejo</h3>
+                        <div class="product-specs" style="color: #fca5a5;">40% ALC. VOL. • 750 ML • MÁS DE 12 MESES EN BARRICA</div>
+                        <p class="product-desc">Notas profundas de chocolate amargo, frutos secos y madera noble.<br><br><em>"Tierra, fuego, madera y tiempo transforman con majestuosa sabiduría al agave, convirtiéndolo en añeja herencia."</em></p>
+                    </div>
+
+                    <div>
+                        <div class="price-row">
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">Valor Estimado:</span>
+                            <span class="price-usd" style="opacity: 0.6; color: #fca5a5;">$150.00 USD</span>
+                        </div>
+                        <div class="btn-disabled-cart">Agotado Temporalmente</div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- PASARELAS DE PAGO Y CONFIANZA -->
+    <section class="payment-trust">
+        <div class="trust-title">Procesamiento Seguro de Pagos Internacionales en USD</div>
+        <div class="payment-badges">
+            <span class="badge-pay">💳 Mercado Pago</span>
+            <span class="badge-pay">⚡ Stripe</span>
+            <span class="badge-pay">🅿️ PayPal</span>
+            <span class="badge-pay">VISA</span>
+            <span class="badge-pay">Mastercard</span>
+            <span class="badge-pay">American Express</span>
+        </div>
+    </section>
+
+    <!-- MODAL CARRITO DE COMPRAS -->
+    <div id="cart-modal">
+        <div class="cart-header">
+            <h2>Tu Pedido (USD)</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+
+        <div class="cart-body" id="cart-items">
+            <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">El carrito está vacío.</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cart-total" style="color: var(--gold-light); font-weight: 700;">$0.00 USD</span>
+            </div>
+            <button class="btn-checkout" onclick="processCheckout()">Proceder al Pago Seguro</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Tequila VII Continentes. Todos los derechos reservados.</p>
+        <p style="margin-top: 8px; color: var(--gold-light);">De México para el Mundo 🇲🇽 🌎 🇨🇴</p>
+        <p style="margin-top: 10px; color: #4b5563;">El consumo de alcohol es perjudicial para la salud. Prohíbase el expendio a menores de edad (+18).</p>
+    </footer>
+
+    <!-- LÓGICA DE INTERACCIÓN DEL CARRITO -->
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart-modal').classList.toggle('active');
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">El carrito está vacío.</p>';
+                cartTotal.textContent = '$0.00 USD';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <h4>${item.title}</h4>
+                            <p>$${item.price.toFixed(2)} USD</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-weight:bold;">Eliminar</button>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            cartTotal.textContent = `$${total.toFixed(2)} USD`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function processCheckout() {
+            if (cart.length === 0) {
+                alert('El carrito está vacío.');
+                return;
+            }
+            alert('Redirigiendo a la pasarela segura de pago (Stripe / Mercado Pago / PayPal) en USD...');
+        }
+    </script>
+</body>
+</html>
